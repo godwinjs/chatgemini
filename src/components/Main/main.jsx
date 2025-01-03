@@ -1,0 +1,91 @@
+import React from 'react';
+import './main.css';
+import { assets } from '../../assets/assets';
+import { Context } from '../../context/context';
+
+const Main = () => {
+    React.useEffect(() => {}, []);
+
+    const { 
+        onSent,
+        recentPrompts,
+        showResult,
+        loading,
+        resultData,
+        setInput,
+        input,
+     } = React.useContext(Context);
+
+    return (
+        <div className='main'>
+            <div className='nav'>
+                <p>Gemini</p>
+                <img src={assets.user_icon} alt='gemini' />
+            </div>
+
+            <div className='main-container'>
+    
+                {!showResult ? 
+                    <>
+                        <div className="greet">
+                            <p><span>Hello, Name..</span></p>
+                            <p>How can i help you today</p>
+                        </div>
+                        <div className="cards">
+                            {[
+                                {text: 'Suggest beautiful places to on an upcoming road trip', icon: assets.compass_icon, alt: 'compass_icon'},
+                                {text: 'Help me find a good restaurant in my area', icon: assets.compass_icon, alt: 'restaurant_icon'},
+                                {text: 'Briefly summarize this concept: urban planning', icon: assets.message_icon, alt: 'message_icon'},
+                                {text: 'Brainstorm team building activities for our work retreat', icon: assets.bulb_icon, alt: 'bulb_icon'},
+                                {text: 'Improve the readability of this code', icon: assets.code_icon, alt: 'code_icon'},
+                            ].map( (item,index) => {
+                                return (
+                                    <div className="card" key={index}>
+                                        <p>{item.text}</p>
+                                        <img src={item.icon} alt={item.alt + ' image'} />
+                                    </div>
+                                )
+                            })}
+                        </div>
+                    </>
+
+                : <div className='result'> 
+                    <div className="result-title">
+                        <img src={assets.user_icon} alt="" />
+                        <p>{recentPrompts}</p>
+                    </div>
+                    {/*  */}
+                    <div className="result-data">
+                        <img src={assets.gemini_icon} alt="" />
+                        {loading ? 
+                            <div className="loader">
+                                <hr />
+                                <hr />
+                                <hr />
+                            </div> 
+                        : <p dangerouslySetInnerHTML={{__html: resultData}}></p> }
+                    </div>
+                    
+                </div>}                
+
+                {/*  */}
+                <div className="main-bottom">
+                    <div className="search-box">
+                        <input type="text" onChange={(e) => setInput(e.target.value)} value={input} placeholder='Enter a prompt here...' />
+                        <div>
+                            <img src={assets.gallery_icon} alt="" />
+                            <img src={assets.mic_icon} alt="" />
+                            { input ? <img onClick={() => onSent()} src={assets.send_icon} alt="" /> : null}
+                        </div>
+                    </div>
+
+                    <p className="bottom-info">
+                        Gemini may display inaccurate information, so double-check its responses. Please do not use Gemini as a primary source of information. Your privacy and gemini apps.
+                    </p>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default Main;
