@@ -2,9 +2,10 @@ import React from 'react';
 import './main.css';
 import { assets } from '../../assets/assets';
 import { Context } from '../../context/context';
+import 'prismjs/themes/prism-dark.css';
 
 const Main = () => {
-    React.useEffect(() => {}, []);
+    const targetRef = React.useRef(null);
 
     const { 
         onSent,
@@ -16,8 +17,14 @@ const Main = () => {
         input,
      } = React.useContext(Context);
 
+    React.useEffect(() => {
+
+      }, []);
+
+    //  console.log('resultData', resultData)
+
     return (
-        <div className='main'>
+        <div className='main' ref={targetRef}>
             <div className='nav'>
                 <p>Gemini</p>
                 <img src={assets.user_icon} alt='gemini' />
@@ -64,6 +71,7 @@ const Main = () => {
                                 <hr />
                             </div> 
                         : <p dangerouslySetInnerHTML={{__html: resultData}}></p> }
+                        
                     </div>
                     
                 </div>}                
@@ -89,3 +97,53 @@ const Main = () => {
 };
 
 export default Main;
+// USEEFFECT
+// if (!targetRef.current) return; // Guard clause: If the ref isn't set yet, do nothing
+        
+// const observer = new MutationObserver((mutations) => {
+//   mutations.forEach((mutation) => {
+//     // Handle mutations here
+//     if (mutation.type === 'childList') {
+//     //   console.log('Child nodes changed:', mutation);
+
+//         if(mutation.addedNodes.length === 2  ){
+//             // Example with querySelector
+//             const cssLink2 = document.querySelector('link[href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"]');
+//             if (cssLink2) {
+//                 reloadCSS(cssLink2);
+//             }
+//         }
+
+//       // Example: Check if a specific class was added
+//       mutation.addedNodes.forEach((node) => {
+//         if (node.classList && node.classList.contains('my-class')) {
+//         //   console.log('Element with class "my-class" added!');
+//         }
+//       })
+//     } else if (mutation.type === 'attributes') {
+//     //   console.log('Attribute changed:', mutation);
+//     }
+//   });
+// });
+
+// const config = {
+//   childList: true, // Observe additions/removals of child nodes
+//   attributes: true, // Observe attribute changes
+//   subtree: true, // Observe all changes within the subtree
+// };
+
+// observer.observe(targetRef.current, config);
+
+// function reloadCSS(link) {
+//     console.log('css reloaded')
+//     const href = link.href;
+//     link.href = ''; // Temporarily set to empty to force reload
+//     link.href = href; // Set back to original href
+//   }
+  
+  
+
+// // Cleanup function: Important to disconnect the observer
+// return () => {
+//   observer.disconnect();
+// };

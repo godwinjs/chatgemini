@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import run from "../config/gemini";
+// import Prism from 'prismjs';
 
 export const Context = React.createContext();
 
@@ -35,7 +36,7 @@ const ContextProvider = ({children}) => {
             setRecentPrompts(prompt);
             
         }else{
-            response = await run(input+ ' also replace the response format with appropriate html elements, do not include the head, body, or html tags');
+            response = await run(input+ ' also replace the response format with appropriate html elements, do not include the head, body, or html tags. replace script tags with code tags in pre tags');
             setRecentPrompts(input);
             setPrevPrompt((prev) => [...prev, input]);
         }
@@ -51,12 +52,27 @@ const ContextProvider = ({children}) => {
         //         newResponse += "<b>"+responseArr[i]+"</b>";
         //     }
         // }
-
+        
         let newResponse2 = response.split('```html')[1].split('```')[0];
+        // let newResponse3 = newResponse2.replace(/<pre>/g, 'split start split');
+        // let newResponse4 = newResponse3.replace(/<\/pre>/g, '');
+        // let newResponse5 = newResponse4.split('split');
+        // // console.log('newResponse5', newResponse5);
+
+        // for (let i = 0; i < newResponse5.length; i++){
+        //     let html = '';
+
+        //     if(newResponse4[i] === 'start'){;
+        //         html = Prism.highlightElement(newResponse5[i+1]);
+        //         newResponse5[i+1] = "<pre>" + html  + "</pre>";
+        //     }
+        // }
+        // let newResponseArr = newResponse5.join('').replace(/start/g, '').split(' ');
+        let newResponseArr = newResponse2.split(' ');
+        
 
         // setResultData(newResponse2);
         // setResultData(newResponse2);
-        let newResponseArr = newResponse2.split(' ');
         for(let i = 0; i < newResponseArr.length; i++){
             delayPara(i, newResponseArr[i]+' ');
         }
