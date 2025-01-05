@@ -16,11 +16,11 @@ const Sidebar = () => {
     React.useEffect(() => {
         // increase margin-left of main when sidebar is extended
         if(extended){
-            document.querySelector('.main').classList.add('increase-ml');
-            document.querySelector('.main .nav').classList.add('decrease-w')
+            // document.querySelector('.main').classList.add('increase-ml');
+            // document.querySelector('.main .nav').classList.add('decrease-w')
         }else {
-            document.querySelector('.main').classList.remove('increase-ml');
-            document.querySelector('.main .nav').classList.remove('decrease-w');
+            // document.querySelector('.main').classList.remove('increase-ml');
+            // document.querySelector('.main .nav').classList.remove('decrease-w');
         }
     }, [extended]);
 

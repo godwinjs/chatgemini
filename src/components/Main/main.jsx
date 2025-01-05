@@ -4,6 +4,7 @@ import { assets } from '../../assets/assets';
 import { Context } from '../../context/context';
 const Main = () => {
     const targetRef = React.useRef(null);
+    const [ extended, setExtended ] = React.useState(false);
 
     const { 
         onSent,
@@ -23,9 +24,12 @@ const Main = () => {
 
     return (
         <div className='main' ref={targetRef}>
-            <div className='nav'>
-                <p>Gemini</p>
-                <img src={assets.user_icon} alt='gemini' />
+            <div className='header'>
+                <img className='menu' onClick={() => setExtended((prevState) => !prevState)} src={assets.menu_icon} alt='menu_icon' />
+                <div className='nav'>
+                    <p className='logo'>Gemini</p>
+                    <img className='profile' src={assets.user_icon} alt='gemini' />
+                </div>
             </div>
 
             <div className='main-container'>
@@ -39,7 +43,6 @@ const Main = () => {
                         <div className="cards">
                             {[
                                 {text: 'Suggest beautiful places to on an upcoming road trip', icon: assets.compass_icon, alt: 'compass_icon'},
-                                {text: 'Help me find a good restaurant in my area', icon: assets.compass_icon, alt: 'restaurant_icon'},
                                 {text: 'Briefly summarize this concept: urban planning', icon: assets.message_icon, alt: 'message_icon'},
                                 {text: 'Brainstorm team building activities for our work retreat', icon: assets.bulb_icon, alt: 'bulb_icon'},
                                 {text: 'Improve the readability of this code', icon: assets.code_icon, alt: 'code_icon'},
@@ -73,9 +76,9 @@ const Main = () => {
                     </div>
                     
                 </div>}                
-
-                {/*  */}
-                <div className="main-bottom">
+            </div>
+            {/*  */}
+            <div className="main-bottom">
                     <div className="search-box">
                         <input type="text" onChange={(e) => setInput(e.target.value)} value={input} placeholder='Enter a prompt here...' />
                         <div>
@@ -88,7 +91,6 @@ const Main = () => {
                     <p className="bottom-info">
                         Gemini may display inaccurate information, so double-check its responses. Please do not use Gemini as a primary source of information. Your privacy and gemini apps.
                     </p>
-                </div>
             </div>
         </div>
     );
