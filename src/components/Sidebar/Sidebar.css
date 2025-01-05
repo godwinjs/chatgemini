@@ -33,7 +33,7 @@
 
 .sidebar .new-chat {
     margin-top: 3.125rem;
-    display: inline-flex;
+    display: flex;
     align-items: center;
     gap: 0.625rem;
     padding: 0.35rem 0.7375rem;
@@ -42,7 +42,13 @@
     font-size: 0.875rem;
     color: grey;
     cursor: pointer;
-    /* width: auto */
+    width: 2.625rem; //42px;
+    backface-visibility: hidden;
+    transition: width .2s ease-in-out;
+}
+
+.new-chat-ext {
+    width: 50% !important;
 }
 
 .sidebar .new-chat:hover {
@@ -64,7 +70,7 @@
     width: 100%;
     display: inline-block;
     height: auto;
-    animation: displayFast .3s ease-in-out;
+    animation: displayFast .5s ease-in-out;
 }
 
 .sidebar .recent {
