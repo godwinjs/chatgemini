@@ -25,25 +25,25 @@ const Sidebar = () => {
     }, [extended]);
 
     return (
-        <div className="sidebar">
+        <div className={`sidebar ${extended ? 'extended' : ''}`}>
             {/*  */}
             <div className='top'>
                 <img className='menu' onClick={() => setExtended((prevState) => !prevState)} src={assets.menu_icon} alt='menu_icon' />
 
                 <div onClick={() => newChat()} className='new-chat'>
                     <img className='plus' src={assets.plus_icon} alt='plus_icon' />
-                    <p className={'text'+ (extended ? 'show' : '')}>New Chat</p>
+                    <p className={'text '+ (extended ? 'show' : '')}>New Chat</p>
                 </div>
 
                 {extended ? <div className='recent'>
                     <p className="recent-title">Recent</p>
                     { prevPrompt.map( (item,index) => {
                         return (
-                            <div onClick={() => loadPrompt(item)} className="recent-entry" key={index}>
+                            <div onClick={() => loadPrompt(item)} className={`recent-entry ${extended ? 'recent-entry-ext': null}`} key={index}>
                                 <img className='user' src={assets.user_icon} alt='user_icon' />
-                                <div className="recent-info">
+                                {/* <div className="recent-info"> */}
                                     <p className="name">{item.slice(0, 18)}...</p>
-                                </div>
+                                {/* </div> */}
                             </div>
                         )
                     })}
@@ -60,9 +60,9 @@ const Sidebar = () => {
                     {icon: assets.setting_icon, text: 'Settings'},
                 ].map( (item,index) => {
                     return (
-                        <div className="buttom-item recent-entry" key={index}>
+                        <div className={`buttom-item recent-entry ${extended ? 'recent-entry-ext': null}`} key={index}>
                             <img className={item.text.toLocaleLowerCase()} src={item.icon} alt={item.text} />
-                            <p className={'text'+ (extended ? 'show' : '')}>{item.text}</p>
+                            <p className={'text '+ (extended ? 'show' : '')}>{item.text}</p>
                         </div>
                     )
                 })}

@@ -2,8 +2,6 @@ import React from 'react';
 import './main.css';
 import { assets } from '../../assets/assets';
 import { Context } from '../../context/context';
-import 'prismjs/themes/prism-dark.css';
-
 const Main = () => {
     const targetRef = React.useRef(null);
 
@@ -35,7 +33,7 @@ const Main = () => {
                 {!showResult ? 
                     <>
                         <div className="greet">
-                            <p><span>Hello, Name..</span></p>
+                            <p><span>Hello, Dev..</span></p>
                             <p>How can i help you today</p>
                         </div>
                         <div className="cards">

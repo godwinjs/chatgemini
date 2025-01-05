@@ -23,10 +23,10 @@
 }
 
 pre {
-  color:rgb(33, 32, 32) !important; /* Light gray background */
+  background-color: #f0f4f9 !important;
   padding: 10px;
   border-radius: 5px;
-  overflow-x: auto; /* Add horizontal scrollbar if code is too wide */
-  font-family: monospace; /* Ensure monospace font */
-  white-space: pre-wrap; /* Allow wrapping of long lines */
+  overflow-x: auto; 
+  font-family: monospace; 
+  white-space: pre-wrap; 
 }

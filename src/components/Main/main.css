@@ -13,7 +13,7 @@
 }
 
 .main .nav {
-    position: fixed;
+    /* position: fixed; */
     z-index: 10;
     width: 84vw;
     display: flex;

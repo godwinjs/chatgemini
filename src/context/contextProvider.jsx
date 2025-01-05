@@ -1,9 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import run from "../config/gemini";
-// import Prism from 'prismjs';
-
-export const Context = React.createContext();
+import hljs from 'highlight.js';
+import { Context } from "./context";
 
 const ContextProvider = ({children}) => {
     const [ input, setInput ] = React.useState('');
@@ -36,7 +35,14 @@ const ContextProvider = ({children}) => {
             setRecentPrompts(prompt);
             
         }else{
-            response = await run(input+ ' also replace the response format with appropriate html elements, do not include the head, body, or html tags. replace script tags with code tags in pre tags');
+            let p = `also replace the response format with appropriate html elements, 
+                do not include the head, body, or html tags.
+                when there is a code block in the response, use pre and code tags and a class name of language-[replace with the language of the code]`
+                // replace script tags with code tags inside pre tags and use 
+                // prismjs to highlight the code, the class name for the pre tag 
+                // should be language-[replace with the language of the code]`;
+
+            response = await run(input+ p);
             setRecentPrompts(input);
             setPrevPrompt((prev) => [...prev, input]);
         }
@@ -54,21 +60,45 @@ const ContextProvider = ({children}) => {
         // }
         
         let newResponse2 = response.split('```html')[1].split('```')[0];
-        // let newResponse3 = newResponse2.replace(/<pre>/g, 'split start split');
-        // let newResponse4 = newResponse3.replace(/<\/pre>/g, '');
-        // let newResponse5 = newResponse4.split('split');
-        // // console.log('newResponse5', newResponse5);
+        let newResponse3 = newResponse2.replace(/<code class="language-/g, 'x_split_x__start__x_split_x');
+        let newResponse4 = newResponse3.replace(/<\/code>/g, 'x_split_x__end__x_split_x');
+        let newResponse5 = newResponse4.split('x_split_x');
+        // console.log('newResponse5', newResponse5);
+        // console.log('newResponse2', newResponse2);
 
-        // for (let i = 0; i < newResponse5.length; i++){
-        //     let html = '';
+        for (let i = 0; i < newResponse5.length; i++){
+            let html = '';
 
-        //     if(newResponse4[i] === 'start'){;
-        //         html = Prism.highlightElement(newResponse5[i+1]);
-        //         newResponse5[i+1] = "<pre>" + html  + "</pre>";
-        //     }
-        // }
-        // let newResponseArr = newResponse5.join('').replace(/start/g, '').split(' ');
-        let newResponseArr = newResponse2.split(' ');
+            if(newResponse5[i] === '__start__'){
+                let code = newResponse5[i+1].split('');
+                let language = '';
+                let codeBlock = '';
+
+                for(let j = 0; j < code.length; j++){
+                    if(code[j] === '"'){
+                        codeBlock = code.slice(j+2).join('');
+                        break;
+                    }else{
+                        language += code[j];
+                    }
+                }
+                
+                console.log(language, codeBlock);
+
+                html = hljs.highlight(
+                    codeBlock,
+                    { language: language }
+                  ).value;
+                //   console.log(html)
+                  
+                newResponse5[i+1] = `<code class="language-${language}">` + html + "</code>";
+            }
+        }
+        
+        // console.log(newResponse5);
+
+        let newResponseArr = newResponse5.join('').replace(/__start__/g, '').replace(/__end__/g, '').split(' ');
+        // let newResponseArr = newResponse2.split(' ');
         
 
         // setResultData(newResponse2);
