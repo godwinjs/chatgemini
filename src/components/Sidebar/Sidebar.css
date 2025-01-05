@@ -8,10 +8,14 @@
     background-color: #f0f4f9;
     padding: 25px 15px;
     margin-right: 0;
+    width: auto;
+    transition: width 0.5s ease-in-out;
+    width: 18.75rem;
+    z-index: 10;
 }
 
 .extended {
-    width: 18.75rem;
+    width: 71px;
 }
 
 .sidebar img {
@@ -20,7 +24,8 @@
 
 .sidebar .menu {
     display: block;
-    margin-left: ;
+    visibility: visible;
+    /* margin-left: ; */
     cursor: pointer;
     margin:  1.375rem 0 1.375rem 0.625rem;
 }
@@ -101,6 +106,35 @@
 
 @media (max-width: 970px) {
     .sidebar {
-        display: none;
+        position: absolute;
+        width: 0px;
+        opacity: 0;
+        animation: fadeOut 0.3s ease-in-out;
+    }
+    .sidebar .menu {
+        visibility: hidden;
+    }
+    .extended {
+        width: 85vw;
+        opacity: 1;
+        animation: fadeIn 0.3s ease-in-out;
     }
 }
+
+@keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }

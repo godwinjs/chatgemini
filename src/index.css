@@ -30,3 +30,10 @@ pre {
   font-family: monospace; 
   white-space: pre-wrap; 
 }
+
+@media (max-width: 970px) {
+  #root{
+    display: inline;
+  }
+}
+

@@ -2,6 +2,7 @@ import React from 'react';
 import './main.css';
 import { assets } from '../../assets/assets';
 import { Context } from '../../context/context';
+
 const Main = () => {
     const targetRef = React.useRef(null);
     const [ extended, setExtended ] = React.useState(false);
@@ -17,13 +18,18 @@ const Main = () => {
      } = React.useContext(Context);
 
     React.useEffect(() => {
-
-      }, []);
+        if(extended){
+            document.querySelector('.sidebar').classList.add('extended')
+        }else {
+            document.querySelector('.sidebar').classList.remove('extended');
+        }
+      }, [extended]);
 
     //  console.log('resultData', resultData)
 
     return (
         <div className='main' ref={targetRef}>
+            {/* <div className={`sidebar-main ${extended ? 'extended-main' : null}`}><Sidebar /></div> */}
             <div className='header'>
                 <img className='menu' onClick={() => setExtended((prevState) => !prevState)} src={assets.menu_icon} alt='menu_icon' />
                 <div className='nav'>

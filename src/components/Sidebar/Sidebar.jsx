@@ -4,7 +4,7 @@ import { assets } from '../../assets/assets';
 import { Context } from '../../context/context';
 
 const Sidebar = () => {
-    const [ extended, setExtended ] = React.useState(false);
+    const [ extended, setExtended ] = React.useState(true);
     const { onSent, newChat, prevPrompt, setRecentPrompts } = React.useContext(Context);
 
     const loadPrompt = async (prompt) => {
@@ -13,19 +13,8 @@ const Sidebar = () => {
         await onSent(prompt);
     }
 
-    React.useEffect(() => {
-        // increase margin-left of main when sidebar is extended
-        if(extended){
-            // document.querySelector('.main').classList.add('increase-ml');
-            // document.querySelector('.main .nav').classList.add('decrease-w')
-        }else {
-            // document.querySelector('.main').classList.remove('increase-ml');
-            // document.querySelector('.main .nav').classList.remove('decrease-w');
-        }
-    }, [extended]);
-
     return (
-        <div className={`sidebar ${extended ? 'extended' : ''}`}>
+        <div className={`sidebar ${extended ? '' : 'extended'}`}>
             {/*  */}
             <div className='top'>
                 <img className='menu' onClick={() => setExtended((prevState) => !prevState)} src={assets.menu_icon} alt='menu_icon' />
