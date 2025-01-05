@@ -6,6 +6,12 @@
   font-family: 'Outfit', sans-serif;
   border: 0;
 }
+body {
+  padding: 0;
+  border: 0;
+  margin: 0;
+  overflow: hidden;
+}
 
 #root{
   min-height: 100vh;

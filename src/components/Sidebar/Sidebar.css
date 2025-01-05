@@ -11,11 +11,12 @@
     width: auto;
     transition: width 0.5s ease-in-out;
     width: 18.75rem;
-    z-index: 10;
+    z-index: 0;
 }
 
 .extended {
     width: 71px;
+    z-index: 10;
 }
 
 .sidebar img {
@@ -41,7 +42,7 @@
     font-size: 0.875rem;
     color: grey;
     cursor: pointer;
-    width: auto
+    /* width: auto */
 }
 
 .sidebar .new-chat:hover {
@@ -51,13 +52,19 @@
 .text {
     opacity: 0; /* Hidden */
     display: none;
-    text-align: center; // start on tut
+    text-align: start; // start on tut
     margin-right: .625rem;
     transition: all 0.5s ease-in-out;
+    width: 0;
+    height: 0;
+    overflow: hidden;
 }
 .show {
     opacity: 1; /* Shown */
+    width: 100%;
     display: inline-block;
+    height: auto;
+    animation: displayFast .3s ease-in-out;
 }
 
 .sidebar .recent {
@@ -137,4 +144,15 @@
     100% {
       opacity: 0;
     }
+  }
+
+  @keyframes displayFast {
+    0% {
+        display: none;
+        opacity: 0;
+      }
+      100% {
+        display: inline-block;
+        opacity: 1;
+      }
   }

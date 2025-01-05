@@ -174,8 +174,6 @@
 }
 
 .search-box {
-    max-width: 60vw;
-    min-width: 50vw;
     width: 60vw;
     margin: 0 auto;
     display: flex;
@@ -290,8 +288,9 @@
     }
     .main-bottom{
         /* position: relative; */
+        position: fixed;
         max-height: 20vh;
-        transform: translateY(150%);
+        /* transform: translateY(120%); */
     }
     .search-box {
         /* margin: auto; */
