@@ -174,7 +174,9 @@
 }
 
 .search-box {
-    max-width: 50vw;
+    max-width: 60vw;
+    min-width: 50vw;
+    width: 60vw;
     margin: 0 auto;
     display: flex;
     align-items: center;
@@ -282,6 +284,9 @@
 @media (max-width: 970px) {
     .main .header .menu {
         display: inline;
+    }
+    .main-container {
+        padding: 0 3rem;
     }
     .main-bottom{
         /* position: relative; */
