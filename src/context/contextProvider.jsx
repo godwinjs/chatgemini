@@ -64,9 +64,9 @@ const ContextProvider = ({children}) => {
         }
         
         let newResponse2 = hasConsecutiveChars(response, '```html') ? response.split('```html')[1].split('```')[0] : response;
-        let newResponse3 = hasConsecutiveChars(response2, '<code class="language') ? newResponse2.replace(/<code class="language-/g, 'x_split_x__start__x_split_x') : newResponse2 ;
-        let newResponse4 = hasConsecutiveChars(response3, '</code>') ? newResponse3.replace(/<\/code>/g, 'x_split_x__end__x_split_x') : newResponse3;
-        let newResponse5 = hasConsecutiveChars(response3, 'x_split_x') ? newResponse4.split('x_split_x') : newResponse4;
+        let newResponse3 = hasConsecutiveChars(newResponse2, '<code class="language') ? newResponse2.replace(/<code class="language-/g, 'x_split_x__start__x_split_x') : newResponse2 ;
+        let newResponse4 = hasConsecutiveChars(newResponse3, '</code>') ? newResponse3.replace(/<\/code>/g, 'x_split_x__end__x_split_x') : newResponse3;
+        let newResponse5 = hasConsecutiveChars(newResponse4, 'x_split_x') ? newResponse4.split('x_split_x') : newResponse4;
 
         for (let i = 0; i < newResponse5.length; i++){
             let html = '';
