@@ -16,13 +16,13 @@ const Main = () => {
         showResult,
         loading,
         resultData,
-        setInput,
+        setInput, 
         input,
      } = React.useContext(Context);
 
     const cleanText = (text) => {
         
-        // console.log(normalize(text))
+        console.log('normalize(text)')
         setInput(text)
     }
 
