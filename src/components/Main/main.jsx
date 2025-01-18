@@ -95,7 +95,7 @@ const Main = () => {
             {/*  */}
             <div className="main-bottom">
                     <div className="search-box">
-                        <input type="text" onChange={(e) => cleanText(e.target.value)} value={input} placeholder='Enter a prompt here...' />
+                        <input type="text" onChange={(e) => setInput(e.target.value)} value={input} placeholder='Enter a prompt here...' />
                         <div>
                             <img src={assets.gallery_icon} alt="" />
                             <img src={assets.mic_icon} alt="" />

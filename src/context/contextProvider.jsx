@@ -46,9 +46,6 @@ const ContextProvider = ({children}) => {
             setRecentPrompts(input);
             setPrevPrompt((prev) => [...prev, input]);
         }
-
-        // let responseArr = response.split('**');
-        // let newResponse;
         
 
         // for(let i = 0; i < responseArr.length; i++){
@@ -58,49 +55,56 @@ const ContextProvider = ({children}) => {
         //         newResponse += "<b>"+responseArr[i]+"</b>";
         //     }
         // }
-         function  hasConsecutiveChars(str,  char)  {
-            const  regex  =  new  RegExp(`${char}{2,}`);  //  Matches  two  or  more  consecutive  occurrences  of  'char'
-            return  regex.test(str);
-        }
         
-        let newResponse2 = hasConsecutiveChars(response, '```html') ? response.split('```html')[1].split('```')[0] : response;
-        let newResponse3 = hasConsecutiveChars(newResponse2, '<code class="language') ? newResponse2.replace(/<code class="language-/g, 'x_split_x__start__x_split_x') : newResponse2 ;
-        let newResponse4 = hasConsecutiveChars(newResponse3, '</code>') ? newResponse3.replace(/<\/code>/g, 'x_split_x__end__x_split_x') : newResponse3;
-        let newResponse5 = hasConsecutiveChars(newResponse4, 'x_split_x') ? newResponse4.split('x_split_x') : newResponse4;
+        let newResponse2 = newResponse2.includes('```html') ? response.split('```html')[1].split('```')[0] : response;
+        let formattedResponse = newResponse2;
+        
+        if(newResponse2.includes('<code class="language')){
+            let newResponse3 = newResponse2.replace(/<code class="language-/g, 'x_split_x__start__x_split_x');
+            let newResponse4 = newResponse3.replace(/<\/code>/g, 'x_split_x__end__x_split_x')
+            formattedResponse = newResponse4.split('x_split_x')
 
-        for (let i = 0; i < newResponse5.length; i++){
-            let html = '';
+            const htmlEntities = {
+                "&lt;": "<",
+                "&gt;": ">",
+                "&amp;": "&",
+                "&quot;": '"',
+                "&apos;": "'",
+            };
 
-            if(newResponse5[i] === '__start__'){
-                let code = newResponse5[i+1].split('');
-                let language = '';
-                let codeBlock = '';
+            for (let i = 0; i < formattedResponse.length; i++){
+                let html = '';
+    
+                if(formattedResponse[i] === '__start__'){
+                    let code = formattedResponse[i+1].split('');
+                    let language = '';
+                    let codeBlock = '';
+    
+                    for(let j = 0; j < code.length; j++){
+                        if(code[j] === '"'){
 
-                for(let j = 0; j < code.length; j++){
-                    if(code[j] === '"'){
-                        codeBlock = code.slice(j+2).join('');
-                        break;
-                    }else{
-                        language += code[j];
+                            codeBlock = code.slice(j+2).join('').replace(/&lt;|&gt;|&amp;|&quot;|&apos;/g, match => htmlEntities[match]);
+                            break;
+                        }else{
+                            language += code[j];
+                        }
                     }
+                    
+                    console.log(language, codeBlock);
+    
+                    html = hljs.highlight(
+                        codeBlock,
+                        { language: language }
+                      ).value;
+                    //   console.log(html)
+                      
+                    formattedResponse[i+1] = `<code class="language-${language}">` + html + "</code>";
                 }
-                
-                console.log(language, codeBlock);
-
-                html = hljs.highlight(
-                    codeBlock,
-                    { language: language }
-                  ).value;
-                //   console.log(html)
-                  
-                newResponse5[i+1] = `<code class="language-${language}">` + html + "</code>";
             }
         }
-        
-        // console.log(newResponse5);
+        console.log(formattedResponse)
 
-        let newResponseArr = newResponse5.join('').replace(/__start__/g, '').replace(/__end__/g, '').split(' ');
-        // let newResponseArr = newResponse2.split(' ');
+        let newResponseArr = formattedResponse.join('').replace(/__start__/g, '').replace(/__end__/g, '').split(' ');
         
 
         // setResultData(newResponse2);
