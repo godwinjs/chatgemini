@@ -2,8 +2,11 @@ import React from 'react';
 import './main.css';
 import { assets } from '../../assets/assets';
 import { Context } from '../../context/context';
+import { AggressiveTokenizer } from 'natural';
+
 
 const Main = () => {
+    // const tokenizer = new natural.WordTokenizer()
     const targetRef = React.useRef(null);
     const [ extended, setExtended ] = React.useState(false);
 
@@ -16,6 +19,12 @@ const Main = () => {
         setInput,
         input,
      } = React.useContext(Context);
+
+    const cleanText = (text) => {
+        
+        // console.log(normalize(text))
+        setInput(text)
+    }
 
     React.useEffect(() => {
         if(extended){
@@ -86,7 +95,7 @@ const Main = () => {
             {/*  */}
             <div className="main-bottom">
                     <div className="search-box">
-                        <input type="text" onChange={(e) => setInput(e.target.value)} value={input} placeholder='Enter a prompt here...' />
+                        <input type="text" onChange={(e) => cleanText(e.target.value)} value={input} placeholder='Enter a prompt here...' />
                         <div>
                             <img src={assets.gallery_icon} alt="" />
                             <img src={assets.mic_icon} alt="" />
