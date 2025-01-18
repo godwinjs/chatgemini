@@ -2,7 +2,7 @@ import React from 'react';
 import './main.css';
 import { assets } from '../../assets/assets';
 import { Context } from '../../context/context';
-import { AggressiveTokenizer } from 'natural';
+// import { AggressiveTokenizer } from 'natural';
 
 
 const Main = () => {
